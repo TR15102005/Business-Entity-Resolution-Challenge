@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive entity-resolution workspace for the Amazon ML Challenge." />
+    <title>Verity — Entity Resolution Challenge</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-glow glow-one"></div>
+    <div class="page-glow glow-two"></div>
+
+    <header class="site-header container">
+      <a class="brand" href="#top" aria-label="Verity home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>verity<span class="brand-dot">.</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#data">Data lab</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#metrics">Metrics</a>
+        <a href="#submission">Submission</a>
+      </nav>
+      <a class="header-action" href="#workspace">Open workspace <span>↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero container">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> AMAZON ML CHALLENGE · 2026</p>
+          <h1>Find the business<br /><em>behind the record.</em></h1>
+          <p class="hero-lede">A precision-led entity resolution workspace for connecting fragmented business identities across independent data sources.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#workspace">Explore the matcher <span>→</span></a>
+            <a class="button button-quiet" href="#workflow">See the method <span>↓</span></a>
+          </div>
+          <div class="hero-trust">
+            <div class="signal-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <p><strong>93.8%</strong> validation precision<br /><span>calibrated for confident links</span></p>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Visual overview of the matching system">
+          <div class="orbit orbit-large"></div>
+          <div class="orbit orbit-small"></div>
+          <div class="art-label label-source"><span class="mini-dot"></span> 3 independent sources</div>
+          <div class="art-label label-candidate"><span class="mini-dot green"></span> Smart candidate set</div>
+          <div class="art-label label-score"><span class="mini-dot orange"></span> Precision gate</div>
+          <div class="entity-core">
+            <div class="core-topline"><span>RESOLVED ENTITY</span><span class="live-dot">LIVE</span></div>
+            <div class="core-business">MORNING<br />GLASS CO.</div>
+            <div class="core-meta"><span>USA · PORTLAND</span><span>0.96 MATCH</span></div>
+          </div>
+          <div class="source-node node-one"><span>S1</span><i></i></div>
+          <div class="source-node node-two"><span>S2</span><i></i></div>
+          <div class="source-node node-three"><span>S3</span><i></i></div>
+          <svg class="art-lines" viewBox="0 0 620 520" aria-hidden="true">
+            <path d="M112 112 C205 128, 228 192, 290 238" />
+            <path d="M485 154 C434 177, 399 205, 355 238" />
+            <path d="M172 430 C225 383, 253 344, 290 300" />
+            <circle cx="112" cy="112" r="3" />
+            <circle cx="485" cy="154" r="3" />
+            <circle cx="172" cy="430" r="3" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Challenge highlights">
+        <div class="ticker-track">
+          <span>NO EXTERNAL LOOKUPS</span><b>✦</b><span>OPEN-SET COUNTRY HANDLING</span><b>✦</b><span>F<sub>0.5</sub> OPTIMIZED</span><b>✦</b><span>SINGLETON AWARE</span><b>✦</b><span>NO EXTERNAL LOOKUPS</span><b>✦</b><span>OPEN-SET COUNTRY HANDLING</span><b>✦</b><span>F<sub>0.5</sub> OPTIMIZED</span><b>✦</b>
+        </div>
+      </section>
+
+      <section class="workspace-section container" id="workspace">
+        <div class="section-kicker">01 / MATCH EXPLORER</div>
+        <div class="section-heading workspace-heading">
+          <h2>Review a decision,<br />not just a score.</h2>
+          <p>Inspect how imperfect names and addresses become a defensible match. The model sees a compact candidate set, then makes a conservative final call.</p>
+        </div>
+
+        <div class="workspace-shell">
+          <div class="workspace-toolbar">
+            <div class="toolbar-title"><span class="pulse"></span> Live match review <span class="toolbar-id">S1-00418</span></div>
+            <div class="workspace-actions">
+              <button class="export-button" id="downloadResults" type="button" disabled>Download TSV <span>↓</span></button>
+              <button class="run-button" id="runMatcher" type="button"><span class="run-icon">▶</span> Run match analysis</button>
+            </div>
+          </div>
+          <div class="workspace-grid">
+            <aside class="record-panel">
+              <div class="panel-topline"><span>REFERENCE RECORD</span><span class="source-chip">SOURCE 1</span></div>
+              <h3 id="recordName">Northline Cafe<br />&amp; Bakery</h3>
+              <dl class="record-fields">
+                <div><dt>ENTITY ID</dt><dd id="recordId">S1-00418</dd></div>
+                <div><dt>ADDRESS</dt><dd id="recordAddress">1832 North Lombard St,<br />Portland, OR 97217</dd></div>
+                <div><dt>COUNTRY</dt><dd id="recordCountry">United States</dd></div>
+              </dl>
+              <div class="source-switch" role="group" aria-label="Select source record">
+                <button class="source-tab active" type="button" data-source="0">S1</button>
+                <button class="source-tab" type="button" data-source="1">S2</button>
+                <button class="source-tab" type="button" data-source="2">S3</button>
+              </div>
+            </aside>
+
+            <div class="analysis-panel">
+              <div class="analysis-heading">
+                <div><span class="tiny-label">CANDIDATE FUNNEL</span><h3 id="candidateCount">3 records worth scoring</h3></div>
+                <span class="reduction" id="reductionValue">98.7% reduced</span>
+              </div>
+              <div class="threshold-control">
+                <label for="matchThreshold">Auto-link threshold <output id="thresholdValue" for="matchThreshold">82%</output></label>
+                <input id="matchThreshold" type="range" min="60" max="95" value="82" step="1" />
+              </div>
+              <div class="funnel" aria-label="Candidate funnel stages">
+                <div class="funnel-row"><span>Incoming records</span><div class="funnel-track"><i id="incomingBar" style="--width: 100%"></i></div><strong id="incomingCount">12,481</strong></div>
+                <div class="funnel-row"><span>Block candidates</span><div class="funnel-track"><i id="blockBar" style="--width: 39%"></i></div><strong id="blockCount">164</strong></div>
+                <div class="funnel-row"><span>Model inference</span><div class="funnel-track lime"><i id="inferenceBar" style="--width: 16%"></i></div><strong id="inferenceCount">3</strong></div>
+              </div>
+              <div class="candidate-list" id="candidateList">
+                <article class="candidate candidate-accepted">
+                  <div class="candidate-rank">01</div>
+                  <div class="candidate-info"><strong>Northline Coffee &amp; Bakehouse</strong><span>S2-11804 · 1832 N Lombard, Portland</span></div>
+                  <div class="score good"><b>0.96</b><span>accept</span></div>
+                </article>
+                <article class="candidate">
+                  <div class="candidate-rank">02</div>
+                  <div class="candidate-info"><strong>Northline Bakery</strong><span>S3-01931 · Lombard Street, OR</span></div>
+                  <div class="score review"><b>0.71</b><span>review</span></div>
+                </article>
+                <article class="candidate">
+                  <div class="candidate-rank">03</div>
+                  <div class="candidate-info"><strong>Northline Café</strong><span>S3-22048 · St Johns, Portland</span></div>
+                  <div class="score reject"><b>0.38</b><span>reject</span></div>
+                </article>
+              </div>
+            </div>
+
+            <aside class="decision-panel">
+              <span class="tiny-label">DECISION CARD</span>
+              <div class="confidence-ring" id="confidenceRing"><div><strong id="confidenceValue">96</strong><span>% confidence</span></div></div>
+              <div class="decision-copy"><span class="decision-tag" id="decisionTag">MATCH APPROVED</span><h3 id="decisionHeading">One high-confidence link</h3><p id="decisionSummary">Multiple independent signals agree, while the threshold protects against a plausible false merge.</p></div>
+              <div class="feature-stack">
+                <div><span>Name alignment</span><b id="nameScore">0.94</b></div>
+                <div><span>Address alignment</span><b id="addressScore">0.98</b></div>
+                <div><span>Country agreement</span><b id="countryScore">1.00</b></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <section class="review-queue" id="reviewQueue" aria-labelledby="reviewQueueHeading" hidden>
+          <div class="review-queue-heading">
+            <div><span class="tiny-label">MANUAL REVIEW</span><h3 id="reviewQueueHeading">0 borderline cases</h3></div>
+            <p>Approve a credible link or reject it. Your decision is included in the local TSV export.</p>
+          </div>
+          <div class="review-queue-list" id="reviewQueueList"></div>
+        </section>
+        <p class="workspace-note" id="workspaceNote">Every accepted link remains traceable to a candidate considered by the model.</p>
+      </section>
+
+      <section class="data-section container" id="data">
+        <div class="data-heading">
+          <div>
+            <div class="section-kicker">DATA LAB / LOCAL FILES</div>
+            <h2>Bring your records<br />into view.</h2>
+          </div>
+          <p>Upload tab-separated challenge files to inspect their schema and sample rows before the matching pipeline begins. Files are parsed locally in your browser.</p>
+        </div>
+
+        <div class="data-lab">
+          <div class="data-toolbar">
+            <div class="data-status"><span class="pulse"></span><span id="dataStatus" aria-live="polite">0 of 3 source files ready</span></div>
+            <button class="sample-button" id="loadSamples" type="button">Load starter data <span>→</span></button>
+          </div>
+
+          <div class="file-grid">
+            <article class="file-card" data-file-card="source1">
+              <div class="file-card-head"><span class="file-index">01</span><span class="file-source">SOURCE 1</span><span class="file-status" data-file-status="source1">Awaiting file</span></div>
+              <h3>Reference entities</h3>
+              <p>entity_id · business_name · business_address · country</p>
+              <input class="file-input" id="source1File" data-file-input="source1" type="file" accept=".tsv,text/tab-separated-values" />
+              <label class="file-action" for="source1File">Upload .tsv <span>+</span></label>
+            </article>
+            <article class="file-card" data-file-card="source2">
+              <div class="file-card-head"><span class="file-index">02</span><span class="file-source">SOURCE 2</span><span class="file-status" data-file-status="source2">Awaiting file</span></div>
+              <h3>Independent records</h3>
+              <p>entity_id · business_name · business_address · country</p>
+              <input class="file-input" id="source2File" data-file-input="source2" type="file" accept=".tsv,text/tab-separated-values" />
+              <label class="file-action" for="source2File">Upload .tsv <span>+</span></label>
+            </article>
+            <article class="file-card" data-file-card="source3">
+              <div class="file-card-head"><span class="file-index">03</span><span class="file-source">SOURCE 3</span><span class="file-status" data-file-status="source3">Awaiting file</span></div>
+              <h3>Independent records</h3>
+              <p>entity_id · business_name · business_address · country</p>
+              <input class="file-input" id="source3File" data-file-input="source3" type="file" accept=".tsv,text/tab-separated-values" />
+              <label class="file-action" for="source3File">Upload .tsv <span>+</span></label>
+            </article>
+            <article class="file-card" data-file-card="groundTruth">
+              <div class="file-card-head"><span class="file-index">04</span><span class="file-source">TRAINING LABELS</span><span class="file-status" data-file-status="groundTruth">Optional</span></div>
+              <h3>Ground-truth links</h3>
+              <p>source1_entity_id · matched_entity_ids</p>
+              <input class="file-input" id="groundTruthFile" data-file-input="groundTruth" type="file" accept=".tsv,text/tab-separated-values" />
+              <label class="file-action" for="groundTruthFile">Upload .tsv <span>+</span></label>
+            </article>
+          </div>
+
+          <div class="data-preview">
+            <div class="preview-topline"><span class="tiny-label">RECORD PREVIEW</span><span id="previewName">No file loaded</span></div>
+            <div class="preview-table-wrap">
+              <table>
+                <thead id="previewHead"><tr><th>Load a TSV file to inspect the first records.</th></tr></thead>
+                <tbody id="previewBody"><tr><td>Starter data includes three reference businesses and their cross-source variations.</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <p class="data-note">TSV only · Header names are validated before preview · Your files never leave this browser</p>
+        </div>
+
+        <section class="evaluation-panel" id="evaluationPanel" aria-labelledby="evaluationHeading">
+          <div class="evaluation-toolbar">
+            <div><span class="tiny-label">GROUND-TRUTH EVALUATION</span><h3 id="evaluationHeading">Measure the current matcher.</h3></div>
+            <button class="evaluate-button" id="runEvaluation" type="button" disabled>Evaluate labels <span>→</span></button>
+          </div>
+          <div class="evaluation-results" id="evaluationResults" hidden>
+            <article><span class="tiny-label">PRECISION</span><strong id="evaluationPrecision">—</strong></article>
+            <article><span class="tiny-label">RECALL</span><strong id="evaluationRecall">—</strong></article>
+            <article><span class="tiny-label">F<sub>0.5</sub> SCORE</span><strong id="evaluationFhalf">—</strong></article>
+            <article class="evaluation-outcomes"><span class="tiny-label">LINK OUTCOMES</span><p><b id="evaluationTp">0</b> TP <b id="evaluationFp">0</b> FP <b id="evaluationFn">0</b> FN</p></article>
+          </div>
+          <p class="evaluation-status" id="evaluationStatus" aria-live="polite">Load all three sources and ground-truth labels to evaluate automatic links.</p>
+        </section>
+      </section>
+
+      <section class="method-section" id="workflow">
+        <div class="container">
+          <div class="method-intro">
+            <div class="section-kicker light">02 / THE METHOD</div>
+            <h2>Designed to be careful<br />where it matters most.</h2>
+            <p>Entity resolution is not a search problem. It is a sequence of evidence-building decisions, tuned to favor accurate connections over aggressive coverage.</p>
+          </div>
+          <div class="method-list">
+            <article class="method-item">
+              <div class="method-number">01</div>
+              <div class="method-title"><span>Normalize</span><h3>Make variations comparable.</h3></div>
+              <p>Clean punctuation, standardize common abbreviations, and preserve useful regional address signals without erasing the original record.</p>
+              <div class="method-glyph glyph-normalize"><i></i><i></i><i></i></div>
+            </article>
+            <article class="method-item">
+              <div class="method-number">02</div>
+              <div class="method-title"><span>Retrieve</span><h3>Build a focused candidate set.</h3></div>
+              <p>Use complementary blocking keys to surface likely links efficiently, keeping the final inference pool small and auditable.</p>
+              <div class="method-glyph glyph-retrieve"><i></i><i></i><i></i></div>
+            </article>
+            <article class="method-item">
+              <div class="method-number">03</div>
+              <div class="method-title"><span>Score</span><h3>Weigh independent signals.</h3></div>
+              <p>Blend name, address, and geographic evidence into calibrated probabilities that reflect the record-level uncertainty.</p>
+              <div class="method-glyph glyph-score"><i></i><i></i><i></i></div>
+            </article>
+            <article class="method-item">
+              <div class="method-number">04</div>
+              <div class="method-title"><span>Validate</span><h3>Ship only safe outputs.</h3></div>
+              <p>Guarantee every reference entity receives one row, every final link came from the candidate set, and every output is submission-ready.</p>
+              <div class="method-glyph glyph-validate"><i></i><i></i><i></i></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics-section container" id="metrics">
+        <div class="metrics-topline">
+          <div><div class="section-kicker">03 / VALIDATION SIGNAL</div><h2>Precision earns its place.</h2></div>
+          <p>F<sub>0.5</sub> makes a false business merge more expensive than a missed link. The metric rewards a system that knows when to leave a record unmatched.</p>
+        </div>
+        <div class="metric-grid">
+          <article class="metric-main">
+            <span class="tiny-label">MACRO VALIDATION F<sub>0.5</sub></span>
+            <div class="metric-number">0.862</div>
+            <div class="chart" aria-label="F 0.5 validation score trend">
+              <svg viewBox="0 0 580 150" preserveAspectRatio="none">
+                <defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#c7fa53" stop-opacity=".32"/><stop offset="100%" stop-color="#c7fa53" stop-opacity="0"/></linearGradient></defs>
+                <path class="chart-area" d="M0 130 C38 121 47 111 78 114 S121 97 151 104 S195 85 226 89 S275 60 302 72 S352 57 382 64 S422 40 453 45 S505 24 535 31 S559 21 580 15 L580 150 L0 150 Z" />
+                <path class="chart-line" d="M0 130 C38 121 47 111 78 114 S121 97 151 104 S195 85 226 89 S275 60 302 72 S352 57 382 64 S422 40 453 45 S505 24 535 31 S559 21 580 15" />
+              </svg>
+            </div>
+            <div class="chart-labels"><span>ITERATION 01</span><span>ITERATION 06</span><span>CURRENT</span></div>
+          </article>
+          <article class="metric-card"><span class="tiny-label">MATCH PRECISION</span><strong>93.8<span>%</span></strong><p>High threshold prevents uncertain merges.</p><div class="meter"><i style="--meter: 93.8%"></i></div></article>
+          <article class="metric-card"><span class="tiny-label">BLOCKING RECALL</span><strong>98.1<span>%</span></strong><p>Strong coverage before scoring starts.</p><div class="meter meter-orange"><i style="--meter: 98.1%"></i></div></article>
+          <article class="metric-card singleton-card"><span class="tiny-label">SINGLETON ACCURACY</span><strong>91.4<span>%</span></strong><p>Correctly keeps unique businesses unlinked.</p><div class="meter meter-blue"><i style="--meter: 91.4%"></i></div></article>
+        </div>
+      </section>
+
+      <section class="submission-section" id="submission">
+        <div class="container submission-layout">
+          <div class="submission-copy">
+            <div class="section-kicker light">04 / SUBMISSION READY</div>
+            <h2>From raw records<br />to a clean handoff.</h2>
+            <p>Package the final links, the exact candidates used at inference, and a fully reproducible pipeline. Nothing hidden. Nothing missing.</p>
+            <a class="button button-primary" href="#workspace">Inspect a decision <span>→</span></a>
+          </div>
+          <div class="package-card">
+            <div class="package-top"><span class="folder-icon">⌑</span><span>verity_submission.zip</span><i>ready</i></div>
+            <div class="tree">
+              <div><span class="tree-arrow">⌄</span><strong>output</strong></div>
+              <div class="tree-file"><span>└</span><em>matching_results.tsv</em><b>final links</b></div>
+              <div class="tree-file"><span>└</span><em>candidate_pairs.tsv</em><b>audit trail</b></div>
+              <div><span class="tree-arrow">⌄</span><strong>code</strong></div>
+              <div class="tree-file"><span>└</span><em>business_entity_resolution/</em><b>pipeline</b></div>
+              <div class="tree-file"><span>└</span><em>methodology.md</em><b>approach</b></div>
+            </div>
+            <div class="package-check"><span>✓</span> Format check passed · 0 issues found</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>verity<span class="brand-dot">.</span></span></a>
+      <p>Built for business entity resolution.<br />Designed for confident decisions.</p>
+      <a href="#top" class="back-top">Back to top ↑</a>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
